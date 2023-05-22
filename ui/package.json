@@ -5,7 +5,19 @@
   "dependencies": {
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
-    "react-scripts": "2.1.2"
+    "react-scripts": "2.1.2",
+    "styled-components": "^5.3.10"
+  },
+  "devDependencies": {
+    "@swc/core": "^1.3.39",
+    "@swc/jest": "^0.2.24",
+    "@types/jest": "^29.4.0",
+    "@types/react": "^16.14.41",
+    "@types/react-dom": "^16.9.19",
+    "@types/styled-components": "^5.1.26",
+    "@typescript-eslint/eslint-plugin": "^5.59.6",
+    "@typescript-eslint/parser": "^5.59.6",
+    "typescript": "^5.0.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -14,7 +26,7 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app, react-app/jest"
   },
   "browserslist": [
     ">0.2%",
