@@ -6,6 +6,7 @@ import {
   TabTitle,
   TabTitleContainer,
 } from "./styles";
+import { capitalise } from "../../shared/utils";
 
 type TabsProps<T> = {
   tabs: {
@@ -15,7 +16,7 @@ type TabsProps<T> = {
   defaultActiveTab: T;
 };
 
-export const Tabs = <T extends unknown>({
+export const Tabs = <T extends string>({
   tabs,
   defaultActiveTab,
 }: TabsProps<T>) => {
@@ -28,20 +29,28 @@ export const Tabs = <T extends unknown>({
   return (
     <TabContainer>
       <TabTitleContainer>
-        {tabTitles.map((title) => (
+        {tabTitles.map((title, index) => (
           <TabTitle
             active={activeTab === title}
             aria-selected={activeTab === title}
             role="tab"
+            key={title}
+            onClick={() => setActiveTab(title)}
+            onKeyDown={(e) => {
+              e.key === "space" && setActiveTab(title);
+            }}
+            tabIndex={index}
           >
-            {title}
+            {capitalise(title)}
           </TabTitle>
         ))}
       </TabTitleContainer>
       <TabContentContainer>
         {tabs.map((tab) =>
           tab.title === activeTab ? (
-            <TabContent role="tabpanel">{tab}</TabContent>
+            <TabContent role="tabpanel" key={tab.title}>
+              {tab.content}
+            </TabContent>
           ) : null
         )}
       </TabContentContainer>

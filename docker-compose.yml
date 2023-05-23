@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   ui:
@@ -24,7 +24,7 @@ services:
     volumes:
       - ./server:/opt/server
     working_dir: /opt/server
-  
+
   database:
     image: mysql:5.6
     environment:
