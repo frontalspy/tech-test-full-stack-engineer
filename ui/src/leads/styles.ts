@@ -44,7 +44,7 @@ export const LeadMeta = styled.div`
 `;
 
 export const LeadData = styled.div`
-  margin-right: ${padding.md};
+  margin-right: ${padding.sm};
 
   svg {
     margin-right: ${padding.xs};
@@ -69,6 +69,10 @@ export const LeadAddress = styled.address`
 
 export const LeadContent = styled.div`
   ${sharedFlexStyles}
+  p {
+    padding-top: ${padding.sm};
+    margin: 0;
+  }
 `;
 
 export const LeadActions = styled.div`

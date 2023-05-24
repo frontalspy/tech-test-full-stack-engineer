@@ -116,10 +116,10 @@ const AcceptedLeadContent = ({ data }: { data: AcceptedLeadItf }) => (
     <LeadMeta>
       <LeadAddress>
         <FontAwesomeIcon icon={faMapMarker} />
-        {data.suburbId}
+        {Suburbs[data.suburbId]}
       </LeadAddress>
       <LeadData>
-        <FontAwesomeIcon icon={faBriefcase} /> {data.categoryId}
+        <FontAwesomeIcon icon={faBriefcase} /> {Categories[data.categoryId]}
       </LeadData>
       <LeadData>Job ID: {data.id}</LeadData>
       <LeadData>${data.price} Lead Invitation</LeadData>
