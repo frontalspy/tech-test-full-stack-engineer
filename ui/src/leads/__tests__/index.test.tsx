@@ -31,7 +31,7 @@ describe("Leads", () => {
       expect(screen.getByRole("tabpanel")).toBeInTheDocument();
     });
 
-    it("does not render the component when loading", () => {
+    it("should not render the component when loading", () => {
       mockGetLeads.mockReturnValue({ accepted: undefined, invited: undefined });
       render(<Leads />);
       expect(
@@ -49,7 +49,7 @@ describe("Leads", () => {
         invited: [mockInvitedLead],
       });
     });
-    it("handles lead action", async () => {
+    it("should handle action on button click", async () => {
       render(<Leads />);
       const button = screen.getByRole("button", { name: "Accept" });
       fireEvent.click(button);
