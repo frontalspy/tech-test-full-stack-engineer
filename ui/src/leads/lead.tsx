@@ -1,5 +1,10 @@
 import React, { useCallback } from "react";
-import { AcceptedLeadItf, InvitedLeadItf, LeadType } from "./interface";
+import {
+  AcceptedLeadItf,
+  InvitedLeadItf,
+  LeadAction,
+  LeadType,
+} from "./interface";
 import {
   LeadActions,
   LeadAddress,
@@ -21,6 +26,7 @@ import {
   faMapMarker,
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
+import { Categories, Suburbs } from "./const";
 
 type CommonLead = { leadType: LeadType };
 
@@ -36,22 +42,22 @@ interface InvitedLead extends CommonLead {
 
 type LeadProps = {
   content: InvitedLead | AcceptedLead;
-  onAction: (leadId: number, action: LeadType) => void;
+  onAction: (leadId: number, action: LeadAction) => void;
 };
 
 export const Lead: React.FC<LeadProps> = ({ content, onAction }) => {
   const { data, leadType } = content;
 
-  const handleAction = useCallback((leadId: number, leadType: LeadType) => {
-    onAction(leadId, leadType);
+  const handleAction = useCallback((leadId: number, action: LeadAction) => {
+    onAction(leadId, action);
   }, []);
 
   return (
     <Card>
       <LeadTitle>
-        <ProfilePicture initials={data.name.charAt(0).toUpperCase()} />
+        <ProfilePicture initials={data.contactName.charAt(0).toUpperCase()} />
         <LeadTitleText>
-          <strong>{data.name}</strong>
+          <strong>{data.contactName}</strong>
           <time dateTime={data.dateCreated}>{data.dateCreated}</time>
         </LeadTitleText>
       </LeadTitle>
@@ -69,10 +75,10 @@ const InvitedLeadContent = ({
   onAction,
 }: {
   data: InvitedLeadItf;
-  onAction: (leadId: number, action: LeadType) => void;
+  onAction: (leadId: number, action: LeadAction) => void;
 }) => {
-  const handleAction = useCallback((leadType: LeadType) => {
-    onAction(data.Id, leadType);
+  const handleAction = useCallback((action: LeadAction) => {
+    onAction(data.id, action);
   }, []);
 
   return (
@@ -80,21 +86,21 @@ const InvitedLeadContent = ({
       <LeadMeta>
         <LeadAddress>
           <FontAwesomeIcon icon={faMapMarker} />
-          {data.suburb}
+          {Suburbs[data.suburbId]}
         </LeadAddress>
         <LeadData>
-          <FontAwesomeIcon icon={faBriefcase} /> {data.category}
+          <FontAwesomeIcon icon={faBriefcase} /> {Categories[data.categoryId]}
         </LeadData>
-        <LeadData>Job ID: {data.Id}</LeadData>
+        <LeadData>Job ID: {data.id}</LeadData>
       </LeadMeta>
       <LeadContent>
         <p>{data.description}</p>
       </LeadContent>
       <LeadActions>
-        <Button variant="primary" onClick={() => handleAction("accepted")}>
+        <Button variant="primary" onClick={() => handleAction("accept")}>
           Accept
         </Button>
-        <Button variant="secondary" onClick={() => handleAction("invited")}>
+        <Button variant="secondary" onClick={() => handleAction("decline")}>
           Decline
         </Button>
         <div>
@@ -110,23 +116,23 @@ const AcceptedLeadContent = ({ data }: { data: AcceptedLeadItf }) => (
     <LeadMeta>
       <LeadAddress>
         <FontAwesomeIcon icon={faMapMarker} />
-        {data.suburb}
+        {data.suburbId}
       </LeadAddress>
       <LeadData>
-        <FontAwesomeIcon icon={faBriefcase} /> {data.category}
+        <FontAwesomeIcon icon={faBriefcase} /> {data.categoryId}
       </LeadData>
-      <LeadData>Job ID: {data.Id}</LeadData>
+      <LeadData>Job ID: {data.id}</LeadData>
       <LeadData>${data.price} Lead Invitation</LeadData>
     </LeadMeta>
     <LeadMeta>
       <LeadData>
-        <a href={`tel:${data.phone}`}>
-          <FontAwesomeIcon icon={faPhone} /> {data.phone}
+        <a href={`tel:${data.contactPhone}`}>
+          <FontAwesomeIcon icon={faPhone} /> {data.contactPhone}
         </a>
       </LeadData>
       <LeadData>
-        <a href={`mailto:${data.email}`}>
-          <FontAwesomeIcon icon={faEnvelope} /> {data.email}
+        <a href={`mailto:${data.contactEmail}`}>
+          <FontAwesomeIcon icon={faEnvelope} /> {data.contactEmail}
         </a>
       </LeadData>
     </LeadMeta>

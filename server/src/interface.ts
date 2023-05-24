@@ -1,21 +1,20 @@
 export type LeadType = "invited" | "accepted";
-export type LeadAction = "accept" | "decline";
 
 type CommonLeadItf = {
   dateCreated: string;
-  suburbId: number;
-  categoryId: number;
-  id: number;
+  suburb: string;
+  category: string;
+  Id: number;
   description: string;
   price: string;
 };
 
 export interface InvitedLeadItf extends CommonLeadItf {
-  contactName: string;
+  name: string;
 }
 
 export interface AcceptedLeadItf extends CommonLeadItf {
-  contactName: string;
-  contactPhone: string;
-  contactEmail: string;
+  name: string;
+  phone: string;
+  email: string;
 }

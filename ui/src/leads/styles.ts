@@ -2,10 +2,13 @@ import styled, { css } from "styled-components";
 import { colours, fontSizes, padding } from "../shared/styles";
 import { Button } from "../components/buttons";
 import { ButtonComponent } from "../components/buttons/styles";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const LeadsContainer = styled.div`
   padding: ${padding.sm};
   color: ${colours.darkGrey};
+  max-width: 64rem;
+  margin: auto;
 `;
 
 // Lead component
@@ -43,6 +46,10 @@ export const LeadMeta = styled.div`
 export const LeadData = styled.div`
   margin-right: ${padding.md};
 
+  svg {
+    margin-right: ${padding.xs};
+  }
+
   a {
     text-decoration: none;
     color: ${colours.primary};
@@ -54,6 +61,10 @@ export const LeadData = styled.div`
 export const LeadAddress = styled.address`
   font-style: normal;
   margin-right: ${padding.md};
+
+  svg {
+    margin-right: ${padding.xs};
+  }
 `;
 
 export const LeadContent = styled.div`

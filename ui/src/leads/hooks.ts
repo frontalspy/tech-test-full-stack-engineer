@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAcceptedLeads, getInvitedLeads } from "./apis";
+import { getAcceptedLeads, getInvitedLeads, putUpdateLead } from "./apis";
 import { AcceptedLeadItf, InvitedLeadItf } from "./interface";
 import { mockAcceptedLead, mockInvitedLead } from "./__mocks__/consts";
 
@@ -8,7 +8,7 @@ type LeadDataItf = {
   invited: InvitedLeadItf[] | undefined;
 };
 
-export const useGetLeads = (): LeadDataItf => {
+export const useGetLeads = (loading: boolean): LeadDataItf => {
   const [leads, setLeads] = useState<LeadDataItf>({
     accepted: undefined,
     invited: undefined,
@@ -17,10 +17,10 @@ export const useGetLeads = (): LeadDataItf => {
   useEffect(() => {
     Promise.all([getAcceptedLeads(), getInvitedLeads()])
       .then(([accepted, invited]) => {
-        setLeads({ accepted: [mockAcceptedLead], invited: [mockInvitedLead] });
+        setLeads({ accepted, invited });
       })
       .catch((err) => console.error(err));
-  }, []);
+  }, [loading]);
 
   return leads;
 };

@@ -1,19 +1,24 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { Tabs } from "../components/tabs";
 import { LeadTabItf } from "./const";
 import { useGetLeads } from "./hooks";
 import { Lead } from "./lead";
-import { LeadType } from "./interface";
+import { LeadAction, LeadType } from "./interface";
 import { LeadsContainer } from "./styles";
+import { putUpdateLead } from "./apis";
 
 export const Leads = () => {
-  const { accepted, invited } = useGetLeads();
+  const [loading, setLoading] = useState(false);
+  const { accepted, invited } = useGetLeads(loading);
 
-  const handleAction = (leadId: number, type: LeadType) => {
-    console.log(leadId, type);
-  };
+  const handleAction = useCallback((leadId: number, type: LeadAction) => {
+    setLoading(true);
+    putUpdateLead(leadId, type)
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(false));
+  }, []);
 
-  if (!accepted || !invited) return null;
+  if (!accepted || !invited || loading) return null;
 
   return (
     <LeadsContainer>
@@ -25,6 +30,7 @@ export const Leads = () => {
               <Lead
                 content={{ leadType: "invited", data }}
                 onAction={handleAction}
+                key={data.id}
               />
             )),
           },
@@ -34,6 +40,7 @@ export const Leads = () => {
               <Lead
                 content={{ leadType: "accepted", data }}
                 onAction={handleAction}
+                key={data.id}
               />
             )),
           },

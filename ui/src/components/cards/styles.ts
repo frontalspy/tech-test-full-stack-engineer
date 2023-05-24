@@ -7,4 +7,5 @@ export const CardContent = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: ${padding.sm} 0;
   width: 100%;
+  margin-bottom: ${padding.md};
 `;

@@ -1,13 +1,27 @@
 import { AcceptedLeadItf, InvitedLeadItf } from "./interface";
+import camelize from "camelize-ts";
 
-const baseUrl = "/:8080/";
+const baseUrl = "http://localhost:8080";
 
 export const getAcceptedLeads = (): Promise<AcceptedLeadItf[]> =>
-  fetch(`${baseUrl}/getLeads?type=accepted`)
-    .then((res) => res.json())
-    .catch((err) => console.error(err));
+  fetchApi<AcceptedLeadItf[]>(`${baseUrl}/leads?type=accepted`);
 
 export const getInvitedLeads = (): Promise<InvitedLeadItf[]> =>
-  fetch(`${baseUrl}/getLeads?type=invited`)
-    .then((res) => res.json())
-    .catch((err) => console.error(err));
+  fetchApi<InvitedLeadItf[]>(`${baseUrl}/leads?type=invited`);
+
+export const putUpdateLead = (
+  leadId: number,
+  leadAction: "accept" | "decline"
+) =>
+  fetchApi(`${baseUrl}/lead/${leadId}`, {
+    method: "PUT",
+    body: JSON.stringify({ action: leadAction }),
+  });
+
+const fetchApi = <T>(url: string, options?: RequestInit): Promise<T> =>
+  fetch(encodeURI(url), {
+    ...options,
+    headers: { "Content-Type": "application/json" },
+  })
+    .then((res) => res.json().then((data) => camelize<T>(data) as T))
+    .catch((err) => console.error(err) as T);
