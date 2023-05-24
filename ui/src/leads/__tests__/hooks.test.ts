@@ -16,17 +16,17 @@ describe("Test useGetLeads", () => {
       .mockResolvedValue([]);
   });
   it("returns leads data", async () => {
-    mockGetAcceptedLeads.mockResolvedValueOnce(mockAcceptedLead);
-    mockGetInvitedLeads.mockResolvedValueOnce(mockInvitedLead);
+    mockGetAcceptedLeads.mockResolvedValueOnce([mockAcceptedLead]);
+    mockGetInvitedLeads.mockResolvedValueOnce([mockInvitedLead]);
 
-    const { result, waitForNextUpdate } = renderHook(() => useGetLeads());
+    const { result, waitForNextUpdate } = renderHook(() => useGetLeads(true));
 
     expect(result.current.accepted).toBeUndefined();
     expect(result.current.invited).toBeUndefined();
 
     await waitForNextUpdate();
 
-    expect(result.current.accepted).toBe([mockAcceptedLead]);
-    expect(result.current.invited).toBe([mockInvitedLead]);
+    expect(result.current.accepted).toStrictEqual([mockAcceptedLead]);
+    expect(result.current.invited).toStrictEqual([mockInvitedLead]);
   });
 });
