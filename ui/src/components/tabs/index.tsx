@@ -48,7 +48,7 @@ export const Tabs = <T extends string>({
       <TabContentContainer>
         {tabs.map((tab) =>
           tab.title === activeTab ? (
-            <TabContent role="tabpanel" key={tab.title}>
+            <TabContent role="tabpanel" key={tab.title} aria-label={tab.title}>
               {tab.content}
             </TabContent>
           ) : null

@@ -1,8 +1,0 @@
-{
-  "setupFilesAfterEnv": ["./ui/setup-test.ts"],
-  "preset": "ts-jest",
-  "testEnvironment": "jsdom",
-  "transform": {
-    "^.+\\.(t|j)sx?$": "@swc/jest"
-  }
-}
