@@ -58,7 +58,7 @@ export const Lead: React.FC<LeadProps> = ({ content, onAction }) => {
         <ProfilePicture initials={data.contactName.charAt(0).toUpperCase()} />
         <LeadTitleText>
           <strong>{data.contactName}</strong>
-          <time dateTime={data.dateCreated}>{data.dateCreated}</time>
+          <time dateTime={data.createdAt}>{data.createdAt}</time>
         </LeadTitleText>
       </LeadTitle>
       {leadType === "invited" ? (

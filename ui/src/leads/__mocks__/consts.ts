@@ -1,7 +1,7 @@
 import { AcceptedLeadItf, InvitedLeadItf } from "../interface";
 
 export const mockInvitedLead: InvitedLeadItf = {
-  dateCreated: "2022-01-01",
+  createdAt: "2022-01-01",
   suburbId: 1,
   categoryId: 1,
   id: 1,
@@ -11,7 +11,7 @@ export const mockInvitedLead: InvitedLeadItf = {
 };
 
 export const mockAcceptedLead: AcceptedLeadItf = {
-  dateCreated: "2023-01-01",
+  createdAt: "2023-01-01",
   suburbId: 2,
   categoryId: 2,
   id: 25,

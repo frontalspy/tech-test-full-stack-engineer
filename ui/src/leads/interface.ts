@@ -2,7 +2,7 @@ export type LeadType = "invited" | "accepted";
 export type LeadAction = "accept" | "decline";
 
 type CommonLeadItf = {
-  dateCreated: string;
+  createdAt: string;
   suburbId: number;
   categoryId: number;
   id: number;
